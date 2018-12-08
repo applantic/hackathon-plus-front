@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "google-map-react": "^1.1.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "react-google-maps": "^9.4.5",
+    "react-scripts": "2.1.1",
+    "recompose": "^0.30.0"
   },
   "scripts": {
     "start": "react-scripts start",

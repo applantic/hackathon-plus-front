@@ -10,7 +10,7 @@ import {
 const MapWithADirectionsRenderer = compose(
   withProps({
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `calc(100vh - 96px)` }} />,
+    containerElement: <div style={{ height: `calc(100vh - 200px)` }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   withGoogleMap,

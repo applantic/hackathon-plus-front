@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   background-color: #4248a0;
 }
 
@@ -10,8 +9,8 @@
 
 .button {
   border: none;
-  padding: 20px 40px;
-  font-size: 3rem;
+  padding: 10px;
+  font-size: 2rem;
   color: white;
   background-color: #ff8063;
   text-decoration: none;

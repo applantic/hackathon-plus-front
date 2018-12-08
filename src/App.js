@@ -3,17 +3,26 @@ import Input from "./components/Input/Input";
 import "./App.css";
 
 import GoogleMaps from "./components/GoogleMaps";
-
+import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="header">
-          <Input />
-          <Input />
-          <button className="button">We Make Buttons</button>
+          <LocationSearchInput
+            placeholder="Jadę z ..."
+          />
+          <LocationSearchInput
+            placeholder="Jadę do ..."
+          />
+          <button className="button">Sprawdź</button>
         </header>
-        <GoogleMaps />
+        <main>
+          <GoogleMaps />
+        </main>
+        <footer>
+          <div>We Make Buttons</div>
+        </footer>
       </div>
     );
   }

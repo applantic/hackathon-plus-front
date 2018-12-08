@@ -15,3 +15,21 @@
   background-color: #ff8063;
   text-decoration: none;
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.link-to-authors {
+  padding: 0 6px;
+  text-decoration: underline;
+}
+
+.emoji {
+  padding: 0 6px
+}

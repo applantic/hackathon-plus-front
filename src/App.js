@@ -82,7 +82,7 @@ class App extends Component {
           <GoogleMaps directions={this.state.directions} />
           <div>
             {this.state.stationsData.map(station => (
-              <div>{station.Nazwa_dworca}</div>
+              <div key={station.Id}>{station.Nazwa_dworca}</div>
             ))}
           </div>
         </main>

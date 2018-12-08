@@ -52,6 +52,9 @@ class App extends Component {
         origin: new google.maps.LatLng(startGeo.lat, startGeo.lng),
         destination: new google.maps.LatLng(endGeo.lat, endGeo.lng),
         travelMode: google.maps.TravelMode.TRANSIT,
+        transitOptions: {
+          modes: [google.maps.TransitMode.TRAIN]
+        },
         drivingOptions: {
           departureTime: this.state.tripDate.toDate()
         }
@@ -88,10 +91,7 @@ class App extends Component {
             date={this.state.tripDate}
             numberOfMonths={1}
             showDefaultInputIcon
-            onDateChange={tripDate => {
-              console.log(tripDate);
-              this.setState({ tripDate });
-            }}
+            onDateChange={tripDate => this.setState({ tripDate })}
             focused={this.state.datepickerFocused}
             onFocusChange={({ focused }) =>
               this.setState({ datepickerFocused: focused })
@@ -101,9 +101,7 @@ class App extends Component {
             Sprawdź
           </button>
         </header>
-        <Sidebar>
-          Some sidebar text
-        </Sidebar>
+        <Sidebar>Some sidebar text</Sidebar>
         <main>
           <GoogleMaps
             defaultCenter={this.defaultMapLocation}

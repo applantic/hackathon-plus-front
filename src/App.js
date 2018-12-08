@@ -9,10 +9,10 @@ import Datepicker from "./components/Datepicker";
 import Sidebar from "./components/Sidebar/Sidebar";
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
-  defaultMapLocation = { lng: 52.2330653, lat: 20.9211106 }; // warsaw
+  defaultMapLocation = { lng: 21.012229, lat: 52.229676 }; // warsaw
   state = {
     directions: null,
-    isSidebarOpen: false,
+    isSidebarOpen: true,
     tripDate: moment(),
     datepickerFocused: false,
     startGeo: null,
@@ -91,7 +91,6 @@ class App extends Component {
             placeholder="Jadę do ..."
           />
           <Datepicker
-            id="DATE"
             date={this.state.tripDate}
             numberOfMonths={1}
             showDefaultInputIcon
@@ -128,22 +127,22 @@ class App extends Component {
           </div>
         </main>
         <footer className="footer">
-          <p>Made with</p>
+          Made with
           <span role="img" aria-label="serce" className="emoji">
             ❤️
           </span>
-          <p>by</p>
+          by
           <a
             className="link-to-authors"
             href="https://applantic.github.io/wemakebuttons/"
           >
-            We Make Buttons - Hackaton Team
+            We Make Buttons
           </a>
-          <p>in</p>
+          in
           <span role="img" aria-label="flaga polski" className="emoji">
             🇵🇱
           </span>
-          <p>2018</p>
+          2018
         </footer>
       </div>
     );

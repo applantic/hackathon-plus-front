@@ -9,10 +9,22 @@ import {
 
 class MapWithADirectionsRenderer extends React.PureComponent {
   render() {
-    const { directions } = this.props;
+    const { directions, options = {}, ...props } = this.props;
 
     return (
-      <GoogleMap defaultOptions={{ styles: mapsConfig }} defaultZoom={7}>
+      <GoogleMap
+        defaultZoom={7}
+        fullscreenControl={false}
+        streetView={false}
+        options={{
+          fullscreenControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          styles: mapsConfig,
+          ...options
+        }}
+        {...props}
+      >
         {directions && <DirectionsRenderer directions={directions} />}
       </GoogleMap>
     );
@@ -22,8 +34,8 @@ class MapWithADirectionsRenderer extends React.PureComponent {
 export default compose(
   withProps({
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `calc(100vh - 220px)` }} />,
-    mapElement: <div style={{ height: `100%` }} />
+    containerElement: <div style={{ height: `calc(100vh - 26px)` }} />,
+    mapElement: <div style={{ height: `calc(100vh - 26px)` }} />
   }),
   withGoogleMap
 )(MapWithADirectionsRenderer);

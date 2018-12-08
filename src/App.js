@@ -6,6 +6,7 @@ import "./App.sass";
 import GoogleMaps from "./components/GoogleMaps";
 import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
 import Datepicker from "./components/Datepicker";
+import Sidebar from "./components/Sidebar/Sidebar";
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
   defaultMapLocation = { lng: 52.2330653, lat: 20.9211106 }; // warsaw
@@ -100,6 +101,9 @@ class App extends Component {
             Sprawdź
           </button>
         </header>
+        <Sidebar>
+          Some sidebar text
+        </Sidebar>
         <main>
           <GoogleMaps
             defaultCenter={this.defaultMapLocation}

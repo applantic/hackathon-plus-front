@@ -1,6 +1,6 @@
 /* globals google */
 import React, { Component } from "react";
-import "./App.css";
+import "./App.sass";
 
 import GoogleMaps from "./components/GoogleMaps";
 import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";

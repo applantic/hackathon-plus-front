@@ -1,13 +1,18 @@
 /* globals google */
 import React, { Component } from "react";
+import moment from "moment";
 import "./App.sass";
 
 import GoogleMaps from "./components/GoogleMaps";
 import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
+import Datepicker from "./components/Datepicker";
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
+  defaultMapLocation = { lng: 52.2330653, lat: 20.9211106 }; // warsaw
   state = {
     directions: null,
+    tripDate: moment(),
+    datepickerFocused: false,
     startGeo: null,
     endGeo: null,
     stationsData: []
@@ -45,7 +50,10 @@ class App extends Component {
       {
         origin: new google.maps.LatLng(startGeo.lat, startGeo.lng),
         destination: new google.maps.LatLng(endGeo.lat, endGeo.lng),
-        travelMode: google.maps.TravelMode.TRANSIT
+        travelMode: google.maps.TravelMode.TRANSIT,
+        drivingOptions: {
+          departureTime: this.state.tripDate.toDate()
+        }
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -74,12 +82,29 @@ class App extends Component {
             onChange={endGeo => this.setState({ endGeo })}
             placeholder="Jadę do ..."
           />
+          <Datepicker
+            id="DATE"
+            date={this.state.tripDate}
+            numberOfMonths={1}
+            showDefaultInputIcon
+            onDateChange={tripDate => {
+              console.log(tripDate);
+              this.setState({ tripDate });
+            }}
+            focused={this.state.datepickerFocused}
+            onFocusChange={({ focused }) =>
+              this.setState({ datepickerFocused: focused })
+            }
+          />
           <button className="button" onClick={this.getDirections}>
             Sprawdź
           </button>
         </header>
         <main>
-          <GoogleMaps directions={this.state.directions} />
+          <GoogleMaps
+            defaultCenter={this.defaultMapLocation}
+            directions={this.state.directions}
+          />
           <div>
             {this.state.stationsData.map(station => (
               <div key={station.Id}>{station.Nazwa_dworca}</div>

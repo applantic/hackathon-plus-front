@@ -3,15 +3,9 @@
   background-color: #4248a0;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .header {
   display: flex;
+  flex-direction: row;
 }
 
 .button {

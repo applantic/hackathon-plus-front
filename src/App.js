@@ -8,10 +8,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="container">
+        <header className="header">
+          <Input />
+          <Input />
           <button className="button">We Make Buttons</button>
-          <Input />
-          <Input />
         </header>
         <GoogleMaps />
       </div>

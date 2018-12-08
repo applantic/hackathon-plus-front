@@ -14,7 +14,7 @@ const MapWithADirectionsRenderer = compose(
       process.env.REACT_APP_GOOGLE_MAPS
     }&v=3.exp&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
+    containerElement: <div style={{ height: `calc(100vh - 96px)` }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   withScriptjs,

@@ -2,18 +2,16 @@ import React from "react";
 import "./style.sass";
 
 export default class Sidebar extends React.Component {
-  state = { isOpen: false };
-
   render() {
     return (
-      <div className={`Sidebar ${this.state.isOpen ? "Sidebar--open" : ""}`}>
+      <div className={`Sidebar ${this.props.isOpen ? "Sidebar--open" : ""}`}>
         <label className="Sidebar__handle" aria-hidden>
           <input
             hidden
-            checked={this.state.isOpen}
+            checked={this.props.isOpen}
             type="checkbox"
             onChange={e => {
-              this.setState({ isOpen: !this.state.isOpen });
+              this.props.onChange && this.props.onChange(!this.props.isOpen);
             }}
           />
         </label>

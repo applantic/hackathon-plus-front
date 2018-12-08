@@ -12,6 +12,7 @@ class App extends Component {
   defaultMapLocation = { lng: 52.2330653, lat: 20.9211106 }; // warsaw
   state = {
     directions: null,
+    isSidebarOpen: false,
     tripDate: moment(),
     datepickerFocused: false,
     startGeo: null,
@@ -77,7 +78,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="header">
+        <Sidebar
+          onChange={isSidebarOpen => this.setState({ isSidebarOpen })}
+          isOpen={this.state.isSidebarOpen}
+        >
           <LocationSearchInput
             onChange={startGeo => this.setState({ startGeo })}
             placeholder="Jadę z ..."
@@ -97,11 +101,21 @@ class App extends Component {
               this.setState({ datepickerFocused: focused })
             }
           />
-          <button className="button" onClick={this.getDirections}>
+          <input
+            defaultValue="10:00"
+            type="time"
+            onChange={e => console.log(e.target.value)}
+          />
+          <button
+            className="button"
+            onClick={() => {
+              this.getDirections();
+              this.setState({ isSidebarOpen: false });
+            }}
+          >
             Sprawdź
           </button>
-        </header>
-        <Sidebar>Some sidebar text</Sidebar>
+        </Sidebar>
         <main>
           <GoogleMaps
             defaultCenter={this.defaultMapLocation}

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Input from "./components/Input/Input";
 import "./App.css";
 
 import GoogleMaps from "./components/GoogleMaps";

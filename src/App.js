@@ -9,7 +9,32 @@ class App extends Component {
   state = {
     directions: null,
     startGeo: null,
-    endGeo: null
+    endGeo: null,
+    stationsData: []
+  };
+
+  getTrainStations = async () => {
+    const stations = [];
+
+    this.state.directions.routes[0].legs[0].steps
+      .filter(step => step.travel_mode === "TRANSIT")
+      .map(route => route.transit)
+      .forEach(route => {
+        if (!stations.includes(route.departure_stop)) {
+          stations.push(route.departure_stop);
+        }
+        if (!stations.includes(route.arrival_stop)) {
+          stations.push(route.arrival_stop);
+        }
+      });
+
+    const stationsQuery = stations.map(
+      station => "Nazwa_dworca=" + station.name
+    );
+    const stationsData = await fetch(
+      "https://hackathon-plus-api.herokuapp.com/PRM?" + stationsQuery.join("&")
+    ).then(res => res.json());
+    this.setState({ stationsData: stationsData });
   };
 
   getDirections = () => {
@@ -23,10 +48,14 @@ class App extends Component {
         travelMode: google.maps.TravelMode.TRANSIT
       },
       (result, status) => {
+        console.log(result);
         if (status === google.maps.DirectionsStatus.OK) {
-          this.setState({
-            directions: result
-          });
+          this.setState(
+            {
+              directions: result
+            },
+            this.getTrainStations
+          );
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -52,6 +81,11 @@ class App extends Component {
         </header>
         <main>
           <GoogleMaps directions={this.state.directions} />
+          <div>
+            {this.state.stationsData.map(station => (
+              <div>{station.Nazwa_dworca}</div>
+            ))}
+          </div>
         </main>
         <footer>
           <div>We Make Buttons</div>

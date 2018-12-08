@@ -22,7 +22,7 @@ class MapWithADirectionsRenderer extends React.PureComponent {
 export default compose(
   withProps({
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `calc(100vh - 200px)` }} />,
+    containerElement: <div style={{ height: `calc(100vh - 220px)` }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   withGoogleMap

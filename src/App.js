@@ -1,6 +1,6 @@
 /* globals google */
 import React, { Component } from "react";
-import "./App.css";
+import "./App.sass";
 
 import GoogleMaps from "./components/GoogleMaps";
 import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
@@ -48,7 +48,6 @@ class App extends Component {
         travelMode: google.maps.TravelMode.TRANSIT
       },
       (result, status) => {
-        console.log(result);
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState(
             {
@@ -87,8 +86,23 @@ class App extends Component {
             ))}
           </div>
         </main>
-        <footer>
-          <div>We Make Buttons</div>
+        <footer className="footer">
+          <p>Made with</p>
+          <span role="img" aria-label="serce" className="emoji">
+            ❤️
+          </span>
+          <p>by</p>
+          <a
+            className="link-to-authors"
+            href="https://applantic.github.io/wemakebuttons/"
+          >
+            We Make Buttons - Hackaton Team
+          </a>
+          <p>in</p>
+          <span role="img" aria-label="flaga polski" className="emoji">
+            🇵🇱
+          </span>
+          <p>2018</p>
         </footer>
       </div>
     );

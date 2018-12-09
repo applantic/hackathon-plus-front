@@ -13,14 +13,12 @@
 
     &--open
         transform: translateX(0)
-        
-    &__handle
-        $handle-height: 40px
 
+    &__handle
         position: absolute
-        top: calc(50% - #{$handle-height / 2})
-        right: -20px
-        width: 20px
-        height: $handle-height
+        top: -20px
+        right: -30px
+        width: 30px
+        height: calc(100% + 20px)
         background-color: yellow
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2)

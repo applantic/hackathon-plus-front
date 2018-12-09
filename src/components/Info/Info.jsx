@@ -92,7 +92,7 @@ export default class Info extends React.Component {
         .filter(key => Boolean(station[key]))
         .map(key => chosen_polish_keys[key])
         .filter(station => Boolean(station));
-      console.log(stationInfo);
+      console.log(station);
 
       return (
         <div key={station.Id} className="Info">
@@ -129,7 +129,7 @@ export default class Info extends React.Component {
               )}
               {stationInfo.map(info => {
                 return (
-                  <li className="Info__list-item">
+                  <li key={info.text} className="Info__list-item">
                     <img
                       className="Info__list-img"
                       src={"/" + info.namePath}

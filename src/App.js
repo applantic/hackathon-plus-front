@@ -9,6 +9,7 @@ import Info from "./components/Info/Info";
 import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { getJsonFromUrl } from "./params-parser";
+import _ from "lodash";
 
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
@@ -81,14 +82,16 @@ class App extends Component {
       "https://hackathon-plus-api.herokuapp.com/PRM?" + stationsQuery.join("&")
     ).then(res => res.json());
 
-    const mapped = stationsData
-      .map(station => ({
-        ...station,
-        ...stations.find(s => s.name === station.Nazwa_dworca)
-      }))
-      .sort((a, b) => a.time.value - b.time.value);
+    const mapped = stationsData.map(station => ({
+      ...station,
+      ...stations.find(s => s.name === station.Nazwa_dworca)
+    }));
 
-    this.setState({ stationsData: mapped });
+    const ordered = _.orderBy(mapped, o => o.time.value, ["asc"]);
+
+    console.log(ordered);
+
+    this.setState({ stationsData: ordered });
   };
 
   getDirections = () => {

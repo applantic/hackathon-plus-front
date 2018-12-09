@@ -9,6 +9,8 @@ import Datepicker from "./components/Datepicker";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Info from "./components/Info/Info";
 import { getJsonFromUrl } from "./params-parser";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
   defaultMapLocation = { lng: 21.012229, lat: 52.229676 }; // warsaw
@@ -20,16 +22,30 @@ class App extends Component {
     datepickerFocused: false,
     startGeo: null,
     endGeo: null,
-    stationsData: []
+    stationsData: [],
+    loadingInitialLoc: false
   };
 
   componentDidMount() {
     const params = getJsonFromUrl();
-    console.log("Url params: " + JSON.stringify(params));
-    const from = params.from;
-    const to = params.to;
-    console.log("From: " + from);
-    console.log("To: " + to);
+
+    if (params.from && params.to) {
+      this.setState({ loadingInitialLoc: true });
+
+      Promise.all([geocodeByAddress(params.from), geocodeByAddress(params.to)])
+        .then(([from, to]) => {
+          return Promise.all([getLatLng(from[0]), getLatLng(to[0])]);
+        })
+        .then(([from, to]) => {
+          this.setState(
+            {
+              startGeo: from,
+              endGeo: to
+            },
+            this.getDirections
+          );
+        });
+    }
   }
 
   getTrainStations = async () => {
@@ -83,7 +99,8 @@ class App extends Component {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState(
             {
-              directions: result
+              directions: result,
+              loadingInitialLoc: false
             },
             this.getTrainStations
           );
@@ -101,7 +118,9 @@ class App extends Component {
           onChange={isSidebarOpen => this.setState({ isSidebarOpen })}
           isOpen={this.state.isSidebarOpen}
         >
-          {this.state.directions ? (
+          {this.state.loadingInitialLoc ? (
+            <div>Ładuje dane przejazdu...</div>
+          ) : this.state.directions ? (
             <div>
               <button
                 className="button"
@@ -117,12 +136,14 @@ class App extends Component {
             <>
               <h2 className="App__title">Znajdź przejazd</h2>
               <LocationSearchInput
+                inputRef={ref => (this.$input1 = ref)}
                 onChange={startGeo => this.setState({ startGeo })}
-                placeholder="Jadę z ..."
+                placeholder="Odkąd ..."
               />
               <LocationSearchInput
+                inputRef={ref => (this.$input2 = ref)}
                 onChange={endGeo => this.setState({ endGeo })}
-                placeholder="Jadę do ..."
+                placeholder="Dokąd ..."
               />
               <div className="form-row">
                 <div className="Datepicker">

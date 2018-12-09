@@ -40,6 +40,7 @@ export default class LocationSearchInput extends React.Component {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div className="Autocomplete">
             <input
+              ref={this.props.inputRef}
               {...getInputProps({
                 placeholder: this.props.placeholder,
                 className: "location-search-input"

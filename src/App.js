@@ -150,6 +150,7 @@ class App extends Component {
                 Cofnij
               </button>
               <Info stations={this.state.stationsData} />
+              <button className="button help">ZŁOŚ POMOC</button>
             </div>
           ) : (
             <>

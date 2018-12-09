@@ -119,6 +119,7 @@ export default class Info extends React.Component {
               s_index
             ) && "Info__details--open"}`}
           >
+            <div className="Info__report">Zgłoś zastrzeżenie</div>
             <ul className="Info__list">
               {Boolean(kasa_prm) && (
                 <li className="Info__list-item">

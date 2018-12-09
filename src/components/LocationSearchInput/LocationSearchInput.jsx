@@ -38,7 +38,7 @@ export default class LocationSearchInput extends React.Component {
         onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
+          <div className="Autocomplete">
             <input
               {...getInputProps({
                 placeholder: this.props.placeholder,
@@ -46,7 +46,7 @@ export default class LocationSearchInput extends React.Component {
               })}
             />
             <div className="autocomplete-dropdown-container absolute">
-              {loading && <div>Loading...</div>}
+              {/* {loading && <div>Loading...</div>} */}
               {suggestions.map(suggestion => {
                 const className = suggestion.active
                   ? "suggestion-item--active"

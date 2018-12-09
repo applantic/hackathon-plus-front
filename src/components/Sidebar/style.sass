@@ -4,11 +4,12 @@
     left: 0
     z-index: 999
     height: 100vh
-    width: 80vw
-    transform: translateX(-100%)
+    width: 84vw
+    transform: translateX(calc(-100% + 16px))
     transition: transform .3s ease
     background: white
     padding: 20px
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2)
 
     &--open
         transform: translateX(0)
@@ -21,4 +22,5 @@
         right: -20px
         width: 20px
         height: $handle-height
-        background-color: red
+        background-color: yellow
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2)

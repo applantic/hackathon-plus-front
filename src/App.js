@@ -14,6 +14,7 @@ class App extends Component {
     directions: null,
     isSidebarOpen: true,
     tripDate: moment(),
+    tripTime: moment(),
     datepickerFocused: false,
     startGeo: null,
     endGeo: null,
@@ -57,7 +58,13 @@ class App extends Component {
           modes: [google.maps.TransitMode.TRAIN]
         },
         drivingOptions: {
-          departureTime: this.state.tripDate.toDate()
+          departureTime: this.state.tripDate
+            .set({
+              hour: this.state.tripTime.hour(),
+              minute: this.state.tripTime.minute()
+            })
+            .clone()
+            .toDate()
         }
       },
       (result, status) => {
@@ -82,6 +89,7 @@ class App extends Component {
           onChange={isSidebarOpen => this.setState({ isSidebarOpen })}
           isOpen={this.state.isSidebarOpen}
         >
+          <h2 className="App__title">Znajdź przejazd</h2>
           <LocationSearchInput
             onChange={startGeo => this.setState({ startGeo })}
             placeholder="Jadę z ..."
@@ -90,20 +98,32 @@ class App extends Component {
             onChange={endGeo => this.setState({ endGeo })}
             placeholder="Jadę do ..."
           />
-          <Datepicker
-            date={this.state.tripDate}
-            numberOfMonths={1}
-            showDefaultInputIcon
-            onDateChange={tripDate => this.setState({ tripDate })}
-            focused={this.state.datepickerFocused}
-            onFocusChange={({ focused }) =>
-              this.setState({ datepickerFocused: focused })
-            }
-          />
+          <div className="Datepicker">
+            <Datepicker
+              date={this.state.tripDate}
+              numberOfMonths={1}
+              onDateChange={tripDate => this.setState({ tripDate })}
+              focused={this.state.datepickerFocused}
+              onFocusChange={({ focused }) =>
+                this.setState({ datepickerFocused: focused })
+              }
+            />
+          </div>
           <input
-            defaultValue="10:00"
+            value={this.state.tripTime.format("HH:mm")}
             type="time"
-            onChange={e => console.log(e.target.value)}
+            min="00:00"
+            max="23:59"
+            className="Timepicker"
+            onChange={e => {
+              const time = e.target.value.split(":");
+              this.setState({
+                tripTime: moment().set({
+                  hour: time[0],
+                  minute: time[1]
+                })
+              });
+            }}
           />
           <button
             className="button"
@@ -114,17 +134,18 @@ class App extends Component {
           >
             Sprawdź
           </button>
+
+          <div>
+            {this.state.stationsData.map(station => (
+              <div key={station.Id}>{station.Nazwa_dworca}</div>
+            ))}
+          </div>
         </Sidebar>
         <main>
           <GoogleMaps
             defaultCenter={this.defaultMapLocation}
             directions={this.state.directions}
           />
-          <div>
-            {this.state.stationsData.map(station => (
-              <div key={station.Id}>{station.Nazwa_dworca}</div>
-            ))}
-          </div>
         </main>
         <footer className="footer">
           Made with

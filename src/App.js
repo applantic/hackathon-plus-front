@@ -8,6 +8,7 @@ import LocationSearchInput from "./components/LocationSearchInput/LocationSearch
 import Datepicker from "./components/Datepicker";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Info from "./components/Info/Info";
+import {getJsonFromUrl} from "./params-parser";
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
   defaultMapLocation = { lng: 21.012229, lat: 52.229676 }; // warsaw
@@ -21,6 +22,15 @@ class App extends Component {
     endGeo: null,
     stationsData: []
   };
+
+  componentDidMount() {
+    const params = getJsonFromUrl();
+    console.log('Url params: ' + JSON.stringify(params));
+    const from = params.from;
+    const to = params.to;
+    console.log('From: ' + from);
+    console.log('To: ' + to);
+  }
 
   getTrainStations = async () => {
     const stations = [];

@@ -56,10 +56,22 @@ class App extends Component {
       .map(route => route.transit)
       .forEach(route => {
         if (!stations.includes(route.departure_stop)) {
-          stations.push(route.departure_stop);
+          stations.push({
+            ...route.departure_stop,
+            time: {
+              text: route.departure_time.text,
+              value: moment(route.departure_time.vaule)
+            }
+          });
         }
         if (!stations.includes(route.arrival_stop)) {
-          stations.push(route.arrival_stop);
+          stations.push({
+            ...route.arrival_stop,
+            time: {
+              text: route.arrival_time.text,
+              value: moment(route.arrival_time.vaule)
+            }
+          });
         }
       });
 
@@ -70,7 +82,14 @@ class App extends Component {
       "https://hackathon-plus-api.herokuapp.com/PRM?" + stationsQuery.join("&")
     ).then(res => res.json());
 
-    this.setState({ stationsData: stationsData });
+    const mapped = stationsData
+      .map(station => ({
+        ...station,
+        ...stations.find(s => s.name === station.Nazwa_dworca)
+      }))
+      .sort((a, b) => a.time.value - b.time.value);
+
+    this.setState({ stationsData: mapped });
   };
 
   getDirections = () => {

@@ -31,7 +31,10 @@ export default class Info extends React.Component {
 
       return (
         <div key={station.Id}>
-          {station.Nazwa_dworca}
+          <div className="Info__station">
+            <span className="Info__time">{station.time.text}</span>
+            {station.Nazwa_dworca}
+          </div>
 
           <div
             className="Info__expand"

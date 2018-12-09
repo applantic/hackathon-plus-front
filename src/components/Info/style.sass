@@ -3,10 +3,32 @@
   text-decoration: underline
 
 .Info
+  &__time
+    display: inline-block
+    width: 60px
+    position: relative
+
+    &::after 
+      content: ''
+      width: 5px
+      height: 5px
+      border-radius: 50%
+      background: yellow
+      border: 2px solid black
+      display: block
+      position: absolute
+      right: 5px
+      top: 6px
+      
+  &__station 
+    margin-bottom: 12px
+    text-transform: uppercase
+    
   &__expand 
-    margin-bottom: 16px
+    margin-left: 62px
+    margin-bottom: 20px
     text-decoration: underline
-    font-size: 14px
+    font-size: 12px
     text-transform: uppercase
   
   &__details

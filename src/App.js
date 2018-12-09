@@ -50,6 +50,8 @@ class App extends Component {
 
   getTrainStations = async () => {
     const stations = [];
+    let departureStop = '';
+    let arrivalStop = '';
 
     this.state.directions.routes[0].legs[0].steps
       .filter(step => step.travel_mode === "TRANSIT")
@@ -57,20 +59,27 @@ class App extends Component {
       .forEach(route => {
         if (!stations.includes(route.departure_stop)) {
           stations.push(route.departure_stop);
+          departureStop = route.departure_stop;
         }
         if (!stations.includes(route.arrival_stop)) {
           stations.push(route.arrival_stop);
+          arrivalStop = route.arrival_stop;
         }
       });
 
-    const stationsQuery = stations.map(
-      station => "Nazwa_dworca=" + station.name
-    );
-    const stationsData = await fetch(
-      "https://hackathon-plus-api.herokuapp.com/PRM?" + stationsQuery.join("&")
+    const departureStopData = await fetch(
+      "https://hackathon-plus-api.herokuapp.com/PRM?" + "Nazwa_dworca=" + departureStop.name
     ).then(res => res.json());
 
-    this.setState({ stationsData: stationsData });
+    const arrivalStopData = await fetch(
+      "https://hackathon-plus-api.herokuapp.com/PRM?" + "Nazwa_dworca=" + arrivalStop.name
+    ).then(res => res.json());
+
+    if(departureStopData.length >= 1 && arrivalStopData.length >=1){
+      this.setState({ stationsData: [departureStopData[0], arrivalStopData[0]] });
+    }else{
+      console.error("Api returns some shit!")
+    }
   };
 
   getDirections = () => {

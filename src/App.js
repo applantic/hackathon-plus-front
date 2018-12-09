@@ -142,7 +142,7 @@ class App extends Component {
           ) : this.state.directions ? (
             <div>
               <button
-                className="button"
+                className="button button-small"
                 onClick={() => {
                   this.setState({ directions: null });
                 }}

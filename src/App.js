@@ -1,15 +1,14 @@
 /* globals google */
-import React, { Component } from "react";
 import moment from "moment";
-import "./App.sass";
-
-import GoogleMaps from "./components/GoogleMaps";
-import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
-import Datepicker from "./components/Datepicker";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Info from "./components/Info/Info";
-import { getJsonFromUrl } from "./params-parser";
+import React, { Component } from "react";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import "./App.sass";
+import Datepicker from "./components/Datepicker";
+import GoogleMaps from "./components/GoogleMaps";
+import Info from "./components/Info/Info";
+import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { getJsonFromUrl } from "./params-parser";
 
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
@@ -150,7 +149,7 @@ class App extends Component {
                 Cofnij
               </button>
               <Info stations={this.state.stationsData} />
-              <button className="button help">ZŁOŚ POMOC</button>
+              <button className="button help">POPROŚ O POMOC</button>
             </div>
           ) : (
             <>
@@ -198,10 +197,9 @@ class App extends Component {
                 className="button"
                 onClick={() => {
                   this.getDirections();
-                  // this.setState({ isSidebarOpen: false });
                 }}
               >
-                Sprawdź
+                Szukaj
               </button>
             </>
           )}

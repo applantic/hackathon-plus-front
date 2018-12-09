@@ -25,7 +25,17 @@ class MapWithADirectionsRenderer extends React.PureComponent {
         }}
         {...props}
       >
-        {directions && <DirectionsRenderer directions={directions} />}
+        {directions && (
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: {
+                strokeColor: "#fce805",
+                borderColor: "white"
+              }
+            }}
+          />
+        )}
       </GoogleMap>
     );
   }

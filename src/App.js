@@ -7,6 +7,7 @@ import GoogleMaps from "./components/GoogleMaps";
 import LocationSearchInput from "./components/LocationSearchInput/LocationSearchInput";
 import Datepicker from "./components/Datepicker";
 import Sidebar from "./components/Sidebar/Sidebar";
+import Info from "./components/Info/Info";
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
   defaultMapLocation = { lng: 21.012229, lat: 52.229676 }; // warsaw
@@ -42,6 +43,7 @@ class App extends Component {
     const stationsData = await fetch(
       "https://hackathon-plus-api.herokuapp.com/PRM?" + stationsQuery.join("&")
     ).then(res => res.json());
+
     this.setState({ stationsData: stationsData });
   };
 
@@ -89,57 +91,67 @@ class App extends Component {
           onChange={isSidebarOpen => this.setState({ isSidebarOpen })}
           isOpen={this.state.isSidebarOpen}
         >
-          <h2 className="App__title">Znajdź przejazd</h2>
-          <LocationSearchInput
-            onChange={startGeo => this.setState({ startGeo })}
-            placeholder="Jadę z ..."
-          />
-          <LocationSearchInput
-            onChange={endGeo => this.setState({ endGeo })}
-            placeholder="Jadę do ..."
-          />
-          <div className="Datepicker">
-            <Datepicker
-              date={this.state.tripDate}
-              numberOfMonths={1}
-              onDateChange={tripDate => this.setState({ tripDate })}
-              focused={this.state.datepickerFocused}
-              onFocusChange={({ focused }) =>
-                this.setState({ datepickerFocused: focused })
-              }
-            />
-          </div>
-          <input
-            value={this.state.tripTime.format("HH:mm")}
-            type="time"
-            min="00:00"
-            max="23:59"
-            className="Timepicker"
-            onChange={e => {
-              const time = e.target.value.split(":");
-              this.setState({
-                tripTime: moment().set({
-                  hour: time[0],
-                  minute: time[1]
-                })
-              });
-            }}
-          />
-          <button
-            className="button"
-            onClick={() => {
-              this.getDirections();
-              this.setState({ isSidebarOpen: false });
-            }}
-          >
-            Sprawdź
-          </button>
-
-          <div>
-            {this.state.stationsData.map(station => (
-              <div key={station.Id}>{station.Nazwa_dworca}</div>
-            ))}
-          </div>
+          {this.state.directions ? (
+            <div>
+              <button
+                className="button"
+                onClick={() => {
+                  this.setState({ directions: null });
+                }}
+              >
+                Cofnij
+              </button>
+              <Info stations={this.state.stationsData} />
+            </div>
+          ) : (
+            <>
+              <h2 className="App__title">Znajdź przejazd</h2>
+              <LocationSearchInput
+                onChange={startGeo => this.setState({ startGeo })}
+                placeholder="Jadę z ..."
+              />
+              <LocationSearchInput
+                onChange={endGeo => this.setState({ endGeo })}
+                placeholder="Jadę do ..."
+              />
+              <div className="Datepicker">
+                <Datepicker
+                  date={this.state.tripDate}
+                  numberOfMonths={1}
+                  onDateChange={tripDate => this.setState({ tripDate })}
+                  focused={this.state.datepickerFocused}
+                  onFocusChange={({ focused }) =>
+                    this.setState({ datepickerFocused: focused })
+                  }
+                />
+              </div>
+              <input
+                value={this.state.tripTime.format("HH:mm")}
+                type="time"
+                min="00:00"
+                max="23:59"
+                className="Timepicker"
+                onChange={e => {
+                  const time = e.target.value.split(":");
+                  this.setState({
+                    tripTime: moment().set({
+                      hour: time[0],
+                      minute: time[1]
+                    })
+                  });
+                }}
+              />
+              <button
+                className="button"
+                onClick={() => {
+                  this.getDirections();
+                  // this.setState({ isSidebarOpen: false });
+                }}
+              >
+                Sprawdź
+              </button>
+            </>
+          )}
         </Sidebar>
         <main>
           <GoogleMaps

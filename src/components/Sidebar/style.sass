@@ -4,7 +4,7 @@
     left: 0
     z-index: 999
     height: 100vh
-    width: 84vw
+    width: 315px
     transform: translateX(-100%)
     transition: transform .3s ease
     background: white
@@ -14,11 +14,25 @@
     &--open
         transform: translateX(0)
 
-    &__handle
+    &__arrow
         position: absolute
-        top: -20px
+        top: 50%
+        left: 50%
+        font-weight: bold
+        font-size: 20px
+        font-family: Arial
+        transform: translate(-50%, -50%)
+
+    &__content
+        z-index: 2
+
+    &__handle
+        $handle_size: 70px
+        position: absolute
+        top: calc(50% - #{$handle-size/2})
         right: -30px
         width: 30px
-        height: calc(100% + 20px)
+        border-radius: 0 6px 6px 0
+        height: $handle_size
         background-color: yellow
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2)
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)

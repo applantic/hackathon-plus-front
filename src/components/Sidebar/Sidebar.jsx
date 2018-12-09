@@ -6,6 +6,7 @@ export default class Sidebar extends React.Component {
     return (
       <div className={`Sidebar ${this.props.isOpen ? "Sidebar--open" : ""}`}>
         <label className="Sidebar__handle" aria-hidden>
+          <div className="Sidebar__arrow">{this.props.isOpen ? "<" : ">"}</div>
           <input
             hidden
             checked={this.props.isOpen}

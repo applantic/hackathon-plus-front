@@ -165,7 +165,7 @@ class App extends Component {
             </>
           )}
         </Sidebar>
-        <main>
+        <main onClick={() => this.setState({ isSidebarOpen: false })}>
           <GoogleMaps
             defaultCenter={this.defaultMapLocation}
             directions={this.state.directions}

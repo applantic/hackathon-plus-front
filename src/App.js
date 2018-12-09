@@ -170,7 +170,7 @@ class App extends Component {
           />
         </main>
         <footer className="footer">
-          Proudly made with
+          Made with
           <span role="img" aria-label="serce" className="emoji">
             ❤️
           </span>
@@ -179,9 +179,9 @@ class App extends Component {
             className="link-to-authors"
             href="https://applantic.github.io/wemakebuttons/"
           >
-            We Make Buttons
+            WeMakeButtons
           </a>
-          in Poland
+          in
           <span role="img" aria-label="flaga polski" className="emoji">
             🇵🇱
           </span>

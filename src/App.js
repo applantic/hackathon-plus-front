@@ -123,6 +123,12 @@ class App extends Component {
             this.getTrainStations
           );
         } else {
+          this.setState({
+            directions: "no_data",
+            stationsData: [],
+            loadingInitialLoc: false
+          });
+          console.log(result);
           console.error(`error fetching directions ${result}`);
         }
       }
@@ -139,7 +145,7 @@ class App extends Component {
           {this.state.loadingInitialLoc ? (
             <div>Ładuje dane przejazdu...</div>
           ) : this.state.directions ? (
-            <div>
+            <div className="directions-view">
               <button
                 className="button button-small"
                 onClick={() => {
@@ -148,7 +154,16 @@ class App extends Component {
               >
                 Cofnij
               </button>
-              <Info stations={this.state.stationsData} />
+              {this.state.directions !== "no_data" ? (
+                <Info stations={this.state.stationsData} />
+              ) : (
+                <h3 style={{ textAlign: "center" }}>
+                  Niestety nie znaleźliśmy takich przejazdów{" "}
+                  <span role="img" aria-label="przepraszamy">
+                    😢
+                  </span>
+                </h3>
+              )}
               <button className="button help">POPROŚ O POMOC</button>
             </div>
           ) : (

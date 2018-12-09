@@ -160,7 +160,7 @@ class App extends Component {
           />
         </main>
         <footer className="footer">
-          Made with
+          Proudly made with
           <span role="img" aria-label="serce" className="emoji">
             ❤️
           </span>
@@ -171,7 +171,7 @@ class App extends Component {
           >
             We Make Buttons
           </a>
-          in
+          in Poland
           <span role="img" aria-label="flaga polski" className="emoji">
             🇵🇱
           </span>

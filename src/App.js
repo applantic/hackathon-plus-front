@@ -8,7 +8,7 @@ import LocationSearchInput from "./components/LocationSearchInput/LocationSearch
 import Datepicker from "./components/Datepicker";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Info from "./components/Info/Info";
-import {getJsonFromUrl} from "./params-parser";
+import { getJsonFromUrl } from "./params-parser";
 class App extends Component {
   DirectionsService = new google.maps.DirectionsService();
   defaultMapLocation = { lng: 21.012229, lat: 52.229676 }; // warsaw
@@ -25,11 +25,11 @@ class App extends Component {
 
   componentDidMount() {
     const params = getJsonFromUrl();
-    console.log('Url params: ' + JSON.stringify(params));
+    console.log("Url params: " + JSON.stringify(params));
     const from = params.from;
     const to = params.to;
-    console.log('From: ' + from);
-    console.log('To: ' + to);
+    console.log("From: " + from);
+    console.log("To: " + to);
   }
 
   getTrainStations = async () => {
@@ -124,33 +124,35 @@ class App extends Component {
                 onChange={endGeo => this.setState({ endGeo })}
                 placeholder="Jadę do ..."
               />
-              <div className="Datepicker">
-                <Datepicker
-                  date={this.state.tripDate}
-                  numberOfMonths={1}
-                  onDateChange={tripDate => this.setState({ tripDate })}
-                  focused={this.state.datepickerFocused}
-                  onFocusChange={({ focused }) =>
-                    this.setState({ datepickerFocused: focused })
-                  }
+              <div className="form-row">
+                <div className="Datepicker">
+                  <Datepicker
+                    date={this.state.tripDate}
+                    numberOfMonths={1}
+                    onDateChange={tripDate => this.setState({ tripDate })}
+                    focused={this.state.datepickerFocused}
+                    onFocusChange={({ focused }) =>
+                      this.setState({ datepickerFocused: focused })
+                    }
+                  />
+                </div>
+                <input
+                  value={this.state.tripTime.format("HH:mm")}
+                  type="time"
+                  min="00:00"
+                  max="23:59"
+                  className="Timepicker"
+                  onChange={e => {
+                    const time = e.target.value.split(":");
+                    this.setState({
+                      tripTime: moment().set({
+                        hour: time[0],
+                        minute: time[1]
+                      })
+                    });
+                  }}
                 />
               </div>
-              <input
-                value={this.state.tripTime.format("HH:mm")}
-                type="time"
-                min="00:00"
-                max="23:59"
-                className="Timepicker"
-                onChange={e => {
-                  const time = e.target.value.split(":");
-                  this.setState({
-                    tripTime: moment().set({
-                      hour: time[0],
-                      minute: time[1]
-                    })
-                  });
-                }}
-              />
               <button
                 className="button"
                 onClick={() => {

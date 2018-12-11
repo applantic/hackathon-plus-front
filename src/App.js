@@ -79,7 +79,7 @@ class App extends Component {
       station => "Nazwa_dworca=" + station.name
     );
     const stationsData = await fetch(
-      "https://hackathon-plus-api.herokuapp.com/PRM?" + stationsQuery.join("&")
+      "http://68.183.222.189/PRM?" + stationsQuery.join("&")
     ).then(res => res.json());
 
     const mapped = stationsData.map(station => ({
@@ -88,8 +88,6 @@ class App extends Component {
     }));
 
     const ordered = _.orderBy(mapped, o => o.time.value, ["asc"]);
-
-    console.log(ordered);
 
     this.setState({ stationsData: ordered });
   };

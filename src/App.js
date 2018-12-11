@@ -79,7 +79,7 @@ class App extends Component {
       station => "Nazwa_dworca=" + station.name
     );
     const stationsData = await fetch(
-      "http://68.183.222.189/PRM?" + stationsQuery.join("&")
+      "https://68.183.222.189/PRM?" + stationsQuery.join("&")
     ).then(res => res.json());
 
     const mapped = stationsData.map(station => ({

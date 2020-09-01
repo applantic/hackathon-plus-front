@@ -236,13 +236,13 @@ class App extends Component {
             className="link-to-authors"
             href="https://applantic.github.io/wemakebuttons/"
           >
-            WeMakeButtons
+            Fundacja Zakoduj Pomoc
           </a>
           in
           <span role="img" aria-label="flaga polski" className="emoji">
             🇵🇱
           </span>
-          2018
+          2020
         </footer>
       </div>
     );

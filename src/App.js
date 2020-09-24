@@ -79,7 +79,7 @@ class App extends Component {
       station => "Nazwa_dworca=" + station.name
     );
     const stationsData = await fetch(
-      "https://hackathon-plus-api-v2.herokuapp.com/PRM?" + stationsQuery.join("&")
+      "https://hackathon-plus-api-v3.herokuapp.com/PRM?" + stationsQuery.join("&")
     ).then(res => res.json());
 
     const mapped = stationsData.map(station => ({
